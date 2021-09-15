@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="instruction" max-width="650">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn class="mx-3" depressed color="orange accent-3 white--text" v-bind="attrs" v-on="on">
+      <v-btn block tile depressed color="blue lighten-1 white--text" v-bind="attrs" v-on="on">
         Instruction
       </v-btn>
     </template>
@@ -26,7 +26,7 @@ export default {
   data(){
 
     return {
-      instruction: true,
+      instruction: false,
       carousel: 0,
       colors: [
         'primary',

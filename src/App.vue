@@ -1,7 +1,10 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer height="100%" v-model="drawer" :mini-variant="miniVariant" :clipped="clipped" :width="300" fixed app>
-      hello world
+    <v-navigation-drawer height="100%" v-model="drawer" stateless :mini-variant="miniVariant" :clipped="clipped" :width="300" fixed app>
+
+      <Instruction />
+
+
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app :elevation="1" color="teal darken-2 white--text">
       <v-app-bar-nav-icon style="color:white;" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly " @click.stop="drawer = !drawer" />
@@ -10,11 +13,12 @@
       </router-link>
 
       <v-spacer></v-spacer>
-      <Instruction />
-      <router-link class="router-link" to="/contact/">Contact Me</router-link>
+<!--      <Instruction />-->
+
     </v-app-bar>
     <v-main>
-        <router-view />
+
+        <Home />
     </v-main>
   </v-app>
 </template>
@@ -30,8 +34,10 @@
 
 <script>
 import Instruction from "@/components/Instruction";
+import Home from "@/views/Home";
+
 export default {
-  components: {Instruction},
+  components: {Instruction, Home},
   data () {
     return {
       clipped: true,
