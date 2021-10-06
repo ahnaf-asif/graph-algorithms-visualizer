@@ -3,7 +3,7 @@
     <v-navigation-drawer height="100%" v-model="drawer" stateless :mini-variant="miniVariant" :clipped="clipped" :width="300" fixed app>
 
       <Instruction />
-
+      
 
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app :elevation="1" color="teal darken-2 white--text">
@@ -13,11 +13,9 @@
       </router-link>
 
       <v-spacer></v-spacer>
-<!--      <Instruction />-->
 
     </v-app-bar>
     <v-main>
-
         <Home />
     </v-main>
   </v-app>
