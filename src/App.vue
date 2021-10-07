@@ -1,9 +1,10 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer height="100%" v-model="drawer" stateless :mini-variant="miniVariant" :clipped="clipped" :width="300" fixed app>
+    <v-navigation-drawer height="100%" v-model="drawer" stateless :mini-variant="miniVariant" :clipped="clipped" :width="300" fixed app color="blue-grey lighten-4">
 
       <Instruction />
-      
+
+      <SidebarDetails></SidebarDetails>
 
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app :elevation="1" color="teal darken-2 white--text">
@@ -33,9 +34,10 @@
 <script>
 import Instruction from "@/components/Instruction";
 import Home from "@/views/Home";
+import SidebarDetails from './components/SidebarDetails.vue';
 
 export default {
-  components: {Instruction, Home},
+  components: {Instruction, Home, SidebarDetails},
   data () {
     return {
       clipped: true,

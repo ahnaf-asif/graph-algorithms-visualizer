@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="instruction" max-width="650">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn block tile depressed color="blue lighten-1 white--text" v-bind="attrs" v-on="on">
+      <v-btn block tile depressed color="red accent-3 white--text" v-bind="attrs" v-on="on">
         Instruction
       </v-btn>
     </template>

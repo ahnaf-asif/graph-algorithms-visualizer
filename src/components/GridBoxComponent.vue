@@ -3,30 +3,44 @@
         class="gridbox" 
         :style="{
             height: size+'px',
-            width: size+'px'
+            width: size+'px',
+            cursor: 'pointer'
         }"
-        @click="dosomething()"
-        :class="{'start':start, 'end':end}"
+        @click="clickedGrid"
+        :class="{'start':start, 'end':end, 'obstacle': val == -1}"
     >
 
-        {{start?'S':''}}{{end?'E':''}}
-
+        {{start?'S':''}}{{end?'E':''}}{{val?'O':''}}
+        
     </div>
 </template>
 
 <script>
+
+import {mapGetters} from 'vuex';
+
 export default {
     name: 'GridBoxComponent',
-    props: ['size', 'row', 'col', 'start', 'end'],
+    props: ['size', 'row', 'col', 'start', 'end', 'val'],
     data(){
         return {
 
         }
     },
     methods: {
-        dosomething(){
-            console.log(`row = ${this.row}, col = ${this.col}`);
-        }
+       clickedGrid(){
+           if(this.currentMode == 3 && (this.start || this.end)){
+               return;
+           }
+           if(this.currentMode == 3 && !this.start && !this.end){
+               if(this.val == -1)this.val = 0;
+               else this.val = -1;
+           }
+           this.$emit('clicked-grid', {r: this.row, c: this.col})
+       }
+    },
+    computed: {
+        ...mapGetters(['currentMode']),
     }
 }
 </script>
@@ -42,11 +56,15 @@ export default {
     font-size: 100%;
 }
 .start{
-    color: rgb(212, 14, 0);
-    background: rgb(116, 255, 116);
+    color: black;
+    background: yellow;
 }
 .end{
-    color: rgb(0, 42, 133);
-    background: rgb(82, 235, 255);
+    color: black;
+    background: #00f7ff;
+}
+.obstacle{
+    color: white;
+    background: #263238;
 }
 </style>
