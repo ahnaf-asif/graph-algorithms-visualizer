@@ -2,14 +2,15 @@
     <div class="sidebar">
         <!-- <h3 class="text-center mt-5">Different Modes</h3>  -->
         <!-- {{ currentMode }} -->
-        <v-divider class="mb-10"></v-divider>
+        <!-- <v-divider class="mb-10"></v-divider> -->
         
         <v-btn 
+            class="mt-2"
             block 
             tile 
             depressed 
             color="purple darken-1 white--text"
-            @click="setModeToStart"
+            @click="setMode(1)"
         >
             Select Starting Node
         </v-btn>
@@ -17,9 +18,9 @@
             block 
             tile 
             depressed 
-            color="teal darken-1 white--text" 
+            color="cyan darken-1 white--text" 
             class="mt-2"
-            @click="setModeToEnd"
+            @click="setMode(2)"
         >
             Select Ending Node
         </v-btn>
@@ -28,11 +29,21 @@
             block 
             tile 
             depressed 
-            color="blue-grey darken-4 white--text" 
+            color="amber darken-2 white--text" 
             class="mt-2"
-            @click="setModeToObstacle"
+            @click="setMode(3)"
         >
             Select Obstacles
+        </v-btn>
+        <v-btn 
+            block 
+            tile 
+            depressed 
+            color="blue-grey darken-4 white--text" 
+            class="mt-2"
+            @click="setRandomObstacles"
+        >
+            Set Random Obstacles
         </v-btn>
 
         <v-btn 
@@ -41,10 +52,42 @@
             depressed 
             color="blue-grey darken-1 white--text"
             class="mt-2"
-            @click="setModeToDefault"
+            @click="setMode(0)"
         >
-            Modification Done
+            Finish Modification
         </v-btn>
+
+        <v-select
+            outlined
+            style="font-weight: bold"
+            class="mt-10"
+            :items="algorithms"
+            item-text="name"
+            item-value="id"
+            v-model="selectedAlgorithm"
+            @change="algorithmChanged()"
+            label="Select Algorithm"
+        ></v-select>
+
+        <v-select
+            outlined
+            style="font-weight: bold"
+            :items="speeds"
+            v-model="speed"
+            @change="algorithmChanged()"
+            label="Set Visualization Speed"
+        ></v-select>
+
+        <p class="text-center">
+            <v-btn
+                rounded
+                large
+                color="light-green accent-3"
+            >
+                Visualize Algorithm !
+            </v-btn>
+        </p>
+
     </div>
 </template>
 
@@ -56,14 +99,50 @@ export default {
     name: 'SidebarDetails',
     data(){
         return{
-
+            selectedAlgorithm: 'bfs',
+            speed: 'Medium',
+            algorithms: [
+                {id: 'bfs', name: 'Breadth First Search'},
+                {id: 'dfs', name: 'Depth First Search'},
+                {id: 'dijkstra', name: 'Dijkstra'},
+            ],
+            speeds: [
+                'Slow', 'Medium', 'Fast'
+            ],
         }
     },
     methods: {
-        ...mapActions(['setModeToStart', 'setModeToEnd', 'setModeToDefault', 'setModeToObstacle'])
+        ...mapActions(['setMode', 'changeObstacleStatus', 'resetGrid']),
+        setRandomObstacles(){
+
+            this.resetGrid();
+            
+            let numberOfObstacles = Math.floor(200*Math.random());
+            numberOfObstacles = 200;
+
+            for(let i = 0; i < numberOfObstacles;i++){
+                
+                let randomRow = Math.floor(this.currentRows*Math.random());
+                let randomCol = Math.floor(this.currentCols*Math.random());
+                let node = {
+                    r: randomRow,
+                    c: randomCol
+                };
+
+                if((node.r == this.startingNode.r && node.c == this.startingNode.c ) || 
+                (node.r == this.endingNode.r && node.c == this.endingNode.c)){
+                    continue;
+                }else{
+                    this.changeObstacleStatus(node);
+                }
+            }
+        },
+        algorithmChanged(){
+            console.log(this.selectedAlgorithm);
+        }
     },
     computed: {
-        ...mapGetters(['currentMode'])
+        ...mapGetters(['currentMode', 'currentRows', 'currentCols', 'startingNode', 'endingNode'])
     }
 }
 </script>

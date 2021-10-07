@@ -6,54 +6,82 @@
             width: size+'px',
             cursor: 'pointer'
         }"
+        :class="{'start' : start, 'end' : end, 'obstacle' : obstacle}"
         @click="clickedGrid"
-        :class="{'start':start, 'end':end, 'obstacle': val == -1}"
     >
 
-        {{start?'S':''}}{{end?'E':''}}{{val?'O':''}}
+       {{start?'S':''}}{{ end?'E':''}}{{obstacle?'O':''}}
         
     </div>
+    <!-- <div>hello wolrd</div> -->
 </template>
 
 <script>
 
-import {mapGetters} from 'vuex';
+import {mapGetters, mapActions} from 'vuex';
 
 export default {
     name: 'GridBoxComponent',
-    props: ['size', 'row', 'col', 'start', 'end', 'val'],
+    props: ['size', 'row', 'col','boxDetails'],
     data(){
         return {
-
+            
         }
     },
     methods: {
-       clickedGrid(){
-           if(this.currentMode == 3 && (this.start || this.end)){
-               return;
-           }
-           if(this.currentMode == 3 && !this.start && !this.end){
-               if(this.val == -1)this.val = 0;
-               else this.val = -1;
-           }
-           this.$emit('clicked-grid', {r: this.row, c: this.col})
-       }
+        ...mapActions(['setMode', 'setStartingNode', 'setEndingNode', 'changeObstacleStatus']),
+        clickedGrid (){
+            // console.log(this.boxDetails);
+            if(this.currentMode == 0)return;
+            else if(this.currentMode == 1 && !this.end){ 
+                let ss = {r: this.row, c: this.col};
+                if(this.obstacle){
+                    this.changeObstacleStatus(ss);
+                }
+                this.setStartingNode(ss); 
+            }
+            else if(this.currentMode == 2 && !this.start){
+                let ee = {r:this.row, c: this.col};
+                if(this.obstacle){
+                    this.changeObstacleStatus(ee);
+                }
+                this.setEndingNode(ee);
+            }
+            else if(!this.start && !this.end && this.currentMode == 3){
+                // this.obstacle = true
+                let node = {r: this.row, c: this.col};
+                this.changeObstacleStatus(node);
+                console.log('in the component : '  , this.boxDetails);
+            }
+        }
     },
+    
     computed: {
-        ...mapGetters(['currentMode']),
-    }
+        ...mapGetters([
+           'currentMode',
+            'startingNode',
+            'endingNode'
+        ]),
+        start() { return this.startingNode.r == this.row && this.startingNode.c == this.col },
+        end(){ return this.endingNode.r == this.row && this.endingNode.c == this.col },
+        obstacle() { return this.boxDetails }
+    },
+    
 }
 </script>
 
-<style>
+<style lang="scss">
 .gridbox{
-    border-right: 2px solid rgb(58, 58, 58);
-    border-bottom: 2px solid rgb(58, 58, 58);
+    border-right: 2px solid #4e6069;
+    border-bottom: 2px solid #4e6069;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bolder;
     font-size: 100%;
+    &:hover{
+        transform: scale(1.05);
+    }
 }
 .start{
     color: black;
@@ -65,6 +93,6 @@ export default {
 }
 .obstacle{
     color: white;
-    background: #263238;
+    background: #4e6069;
 }
 </style>
