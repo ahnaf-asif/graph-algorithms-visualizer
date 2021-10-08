@@ -83,8 +83,19 @@
                 rounded
                 large
                 color="light-green accent-3"
+                @click="visualizeAlgorithm()"
             >
                 Visualize Algorithm !
+            </v-btn>
+        </p>
+        <p class="text-center">
+            <v-btn
+                rounded
+                large
+                color="blue-grey darken-3 white--text"
+                @click="resetGrid()"
+            >
+                Reset The Grid !
             </v-btn>
         </p>
 
@@ -112,7 +123,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['setMode', 'changeObstacleStatus', 'resetGrid']),
+        ...mapActions(['setMode', 'changeObstacleStatus', 'resetGrid', 'runAlgorithm']),
         setRandomObstacles(){
 
             this.resetGrid();
@@ -138,7 +149,10 @@ export default {
             }
         },
         algorithmChanged(){
-            console.log(this.selectedAlgorithm);
+            console.log('algorithm changed');
+        },
+        visualizeAlgorithm(){
+            this.runAlgorithm([this.selectedAlgorithm, this.speed]);
         }
     },
     mounted() {

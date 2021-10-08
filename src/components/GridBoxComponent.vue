@@ -14,9 +14,12 @@
         
         <div 
             class="for-animation-mask"
-            :class="{'algorithm-animation': algorithmAnimation }"
+            :class="{'algorithm-animation': algorithmAnimation}"
         >
             
+        </div>
+        <div style="display:none;" :class="{'path-animation': pathAnimation && !start && !end}">
+            <div class="inside-path-animation"></div>
         </div>
         <div 
             class="another-for-icons"
@@ -123,7 +126,27 @@ export default {
 }
 .algorithm-animation{
     animation: algorithmAnimation ease-in-out forwards;
-    animation-duration: 400ms;
+    animation-duration: 500ms;
+}
+.path-animation{
+    // z-index: 100;
+    display: block !important;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 10;
+
+    transform: scale(1); 
+
+    background: rgb(52, 255, 221);
+}
+.inside-path-animation{
+    height: 100%;
+    width:100%;
+    border-radius: 50%;
+    background: rgb(255, 12, 202);
 }
 .another-for-icons{
     height:100%;
@@ -241,7 +264,7 @@ export default {
       transform: scale(1.0); 
     //   background: rgb(255, 174, 52);
       background: rgb(52, 255, 221);
-      border-radius: 20%;
+      border-radius: 0;
     }
 }
 

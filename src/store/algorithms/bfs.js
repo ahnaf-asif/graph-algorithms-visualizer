@@ -39,6 +39,12 @@ function bfs(n, m, startingNode, endingNode, grid, vis, parent){
             parent[newNode.r][newNode.c] = cur;
             queue.push(newNode);
         }
+        if(valid(cur.r, cur.c-1, n, m) && !vis[cur.r][cur.c-1] && grid[cur.r][cur.c-1] != -1){
+            let newNode = {r: cur.r, c: cur.c-1};
+            vis[cur.r][cur.c-1] = true;
+            parent[newNode.r][newNode.c] = cur;
+            queue.push(newNode);
+        }
         if(valid(cur.r-1, cur.c, n, m) && !vis[cur.r-1][cur.c] && grid[cur.r-1][cur.c] != -1){
             let newNode = {r: cur.r-1, c: cur.c};
             vis[cur.r-1][cur.c] = true;
@@ -51,12 +57,7 @@ function bfs(n, m, startingNode, endingNode, grid, vis, parent){
             parent[newNode.r][newNode.c] = cur;
             queue.push(newNode);
         }
-        if(valid(cur.r, cur.c-1, n, m) && !vis[cur.r][cur.c-1] && grid[cur.r][cur.c-1] != -1){
-            let newNode = {r: cur.r, c: cur.c-1};
-            vis[cur.r][cur.c-1] = true;
-            parent[newNode.r][newNode.c] = cur;
-            queue.push(newNode);
-        }
+        
 
     }
     let currentNode = {r: endingNode.r, c: endingNode.c};
@@ -75,13 +76,16 @@ function bfs(n, m, startingNode, endingNode, grid, vis, parent){
     }
     // console.log(parent[5][3] == startingNode);
 
-    let answer = {
+    return {
         shortestDistance: shortestDistance,
         fullPath: fullPath
     };
+
+    // for(let box in shor)
+
     // console.log(answer);
 
-    return answer;
+    // return answer;
 }
 
 export { bfs }

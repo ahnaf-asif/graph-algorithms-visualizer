@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-//import { bfs } from './algorithms/bfs.js'
+import mutations from './mutations'
 
 Vue.use(Vuex)
 
@@ -41,45 +41,10 @@ const actions= {
   },
   changeObstacleStatus({commit}, node){
     commit('changeObstacleStatus', node);
-  }
-};
-
-const mutations= {
-  setMode: (state, modeToSet) => (state.mode = modeToSet),
-  setStartingNode: (state, node) => (state.startingNode = node),
-  setEndingNode: (state, node) => (state.endingNode = node),
-  setRowsAndColumns: (state,dimension) => {
-    state.rows = dimension.rows, state.cols = dimension.cols;
-    let ararows = dimension.rows+10;
-    let aracols = dimension.cols+10;
-    state.grid = new Array(ararows).fill(0).map(() => new Array(aracols).fill(0));
-    state.vis = new Array(ararows).fill(0).map(() => new Array(aracols).fill(0));
-    state.parent = new Array(ararows).fill(0).map(() => new Array(aracols).fill(0));
-
-    state.gridAnimationSituation = new Array(ararows).fill(0).map(() => new Array(aracols).fill({
-      pathAnimation: 0, 
-      algorithmAnimation: 0
-    }));
-
-    // console.log(state.gridAnimationSituation[3][5]);
-
-    //bfs(state.rows, state.cols, state.startingNode, state.endingNode, state.grid, state.vis, state.parent);
   },
-  changeObstacleStatus : (state, node) => {
-    
-    if( state.grid[node.r][node.c] == 0){
-      Vue.set(state.grid[node.r], node.c, -1);
-    } else {
-      Vue.set(state.grid[node.r], node.c, 0);
-    }
+  runAlgorithm({commit}, details){
+    commit('runAlgorithm', details);
   },
-  resetGrid : (state) => {
-    for(let i = 0; i < state.rows;i++){
-      for(let j = 0; j < state.cols; j++){
-        Vue.set(state.grid[i], j, 0);
-      }
-    }
-  }
 };
  
 const getters = { 
