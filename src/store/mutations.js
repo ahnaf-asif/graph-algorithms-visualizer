@@ -53,6 +53,9 @@ const resetGrid = (state) => {
     }
 };
 const runAlgorithm = (state, details) => {
+
+    state.mode = 0;
+
     console.log('details : ' + details);
     console.log(state.cols);
 
@@ -61,7 +64,24 @@ const runAlgorithm = (state, details) => {
     let shortestDistanceArray = ans.shortestDistance;
     let fullPath = ans.fullPath;
 
-    let timeout = 100;
+    let timeout = 500;
+
+    let speed = details[1];
+    if(speed == 'Super Slow'){
+        timeout = 1000;
+    }
+    if(speed == 'Slow'){
+        timeout = 500;
+    }
+    if(speed == 'Medium'){
+        timeout = 300;
+    }
+    if(speed == 'Fast'){
+        timeout = 200;
+    }
+    if(speed == 'Super Fast'){
+        timeout = 100;
+    }
 
     for(let i = 0; i < fullPath.length;i++){
         setTimeout(()=>{
@@ -79,7 +99,7 @@ const runAlgorithm = (state, details) => {
                 pathAnimation: 1, 
                 algorithmAnimation: 0
             });
-        }, lastTime+i*timeout);
+        }, lastTime+i*100);
     }
     
     console.log(state.gridAnimationSituation);

@@ -74,7 +74,6 @@
             style="font-weight: bold"
             :items="speeds"
             v-model="speed"
-            @change="algorithmChanged()"
             label="Set Visualization Speed"
         ></v-select>
 
@@ -93,7 +92,7 @@
                 rounded
                 large
                 color="blue-grey darken-3 white--text"
-                @click="resetGrid()"
+                @click="resetGridInside()"
             >
                 Reset The Grid !
             </v-btn>
@@ -111,14 +110,15 @@ export default {
     data(){
         return{
             selectedAlgorithm: 'bfs',
-            speed: 'Medium',
+            speed: 'Slow',
+            alreadyVisualized: false,
             algorithms: [
                 {id: 'bfs', name: 'Breadth First Search'},
                 // {id: 'dfs', name: 'Depth First Search'},
                 // {id: 'dijkstra', name: 'Dijkstra'},
             ],
             speeds: [
-                'Slow', 'Medium', 'Fast'
+                'Super Slow', 'Slow', 'Medium', 'Fast', 'Super Fast'
             ],
         }
     },
@@ -151,8 +151,15 @@ export default {
         algorithmChanged(){
             console.log('algorithm changed');
         },
+        resetGridInside(){
+            this.alreadyVisualized = false;
+            this.resetGrid();
+        },
         visualizeAlgorithm(){
-            this.runAlgorithm([this.selectedAlgorithm, this.speed]);
+            if(!this.alreadyVisualized){
+                this.alreadyVisualized = true;
+                this.runAlgorithm([this.selectedAlgorithm, this.speed]);
+            }
         }
     },
     mounted() {

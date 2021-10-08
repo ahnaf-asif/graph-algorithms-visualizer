@@ -32,31 +32,49 @@ function bfs(n, m, startingNode, endingNode, grid, vis, parent){
         fullPath.push(cur);
 
         if(cur.r == endingNode.r && cur.c == endingNode.c)break;
+        
+        if(valid(cur.r, cur.c+1, n, m) && !vis[cur.r][cur.c+1] && grid[cur.r][cur.c+1] != -1){
+            let newNode = {r: cur.r, c: cur.c+1};
+            vis[cur.r][cur.c+1] = true;
+            parent[newNode.r][newNode.c] = cur;
+            if(newNode.c == endingNode.c && newNode.r == endingNode.r){
+                fullPath.push(newNode);
+                break;
+            }
+            queue.push(newNode);
+        }
 
         if(valid(cur.r+1, cur.c, n, m) && !vis[cur.r+1][cur.c] && grid[cur.r+1][cur.c] != -1){
             let newNode = {r: cur.r+1, c: cur.c};
             vis[cur.r+1][cur.c] = true;
             parent[newNode.r][newNode.c] = cur;
+            if(newNode.c == endingNode.c && newNode.r == endingNode.r){
+                fullPath.push(newNode);
+                break;
+            }
             queue.push(newNode);
         }
         if(valid(cur.r, cur.c-1, n, m) && !vis[cur.r][cur.c-1] && grid[cur.r][cur.c-1] != -1){
             let newNode = {r: cur.r, c: cur.c-1};
             vis[cur.r][cur.c-1] = true;
             parent[newNode.r][newNode.c] = cur;
+            if(newNode.c == endingNode.c && newNode.r == endingNode.r){
+                fullPath.push(newNode);
+                break;
+            }
             queue.push(newNode);
         }
         if(valid(cur.r-1, cur.c, n, m) && !vis[cur.r-1][cur.c] && grid[cur.r-1][cur.c] != -1){
             let newNode = {r: cur.r-1, c: cur.c};
             vis[cur.r-1][cur.c] = true;
             parent[newNode.r][newNode.c] = cur;
+            if(newNode.c == endingNode.c && newNode.r == endingNode.r){
+                fullPath.push(newNode);
+                break;
+            }
             queue.push(newNode);
         }
-        if(valid(cur.r, cur.c+1, n, m) && !vis[cur.r][cur.c+1] && grid[cur.r][cur.c+1] != -1){
-            let newNode = {r: cur.r, c: cur.c+1};
-            vis[cur.r][cur.c+1] = true;
-            parent[newNode.r][newNode.c] = cur;
-            queue.push(newNode);
-        }
+        
         
 
     }

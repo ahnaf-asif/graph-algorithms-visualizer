@@ -126,7 +126,7 @@ export default {
 }
 .algorithm-animation{
     animation: algorithmAnimation ease-in-out forwards;
-    animation-duration: 500ms;
+    animation-duration: 200ms;
 }
 .path-animation{
     // z-index: 100;
