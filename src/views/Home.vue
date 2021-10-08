@@ -8,6 +8,8 @@
         :row="rr" 
         :col="cc"
         :boxDetails="findBoxDetails(rr,cc)"
+        :algorithmAnimation="checkIfAlgorithmAnimationNeeded(rr, cc)"
+        :pathAnimation="checkIfPathAnimationNeeded(rr, cc)"
         ></GridBoxComponent>
     </div> 
   </div>  
@@ -65,12 +67,18 @@
       
     },
     computed: {
-      ...mapGetters(['currentMode', 'grid']),
+      ...mapGetters(['currentMode', 'grid', 'gridAnimationSituation']),
     },
     methods: {
       ...mapActions(['setRowsAndColumns']),
       findBoxDetails(r, c){
         return this.grid[r][c];
+      }, 
+      checkIfAlgorithmAnimationNeeded(rr, cc){
+        return this.gridAnimationSituation[rr][cc].algorithmAnimation;
+      },
+      checkIfPathAnimationNeeded(rr, cc){
+        return this.gridAnimationSituation[rr][cc].pathAnimation;
       }
     }
     

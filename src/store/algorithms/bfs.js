@@ -10,11 +10,15 @@ function bfs(n, m, startingNode, endingNode, grid, vis, parent){
 
     //parent.set(startingNode, startingNode); // parent of source is parent itself
 
+    let fullPath = [];
 
     parent[startingNode.r][startingNode.c] = {r: startingNode.r, c: startingNode.c};
 
     let queue = [{r: startingNode.r, c: startingNode.c}];
-    console.log(parent);
+
+    // fullPath.push(queue[0]);
+
+    // console.log(parent);
     vis[startingNode.r][startingNode.c] = true; // whenever I push an element in the queue, I have to visit that true
     // let cnt = 0;
     while(queue.length != 0){
@@ -24,8 +28,10 @@ function bfs(n, m, startingNode, endingNode, grid, vis, parent){
         queue.shift();
 
         vis[cur.r][cur.c] = true;
+        
+        fullPath.push(cur);
 
-        if(cur == endingNode)break;
+        if(cur.r == endingNode.r && cur.c == endingNode.c)break;
 
         if(valid(cur.r+1, cur.c, n, m) && !vis[cur.r+1][cur.c] && grid[cur.r+1][cur.c] != -1){
             let newNode = {r: cur.r+1, c: cur.c};
@@ -53,15 +59,29 @@ function bfs(n, m, startingNode, endingNode, grid, vis, parent){
         }
 
     }
-    // let currentNode = {r: endingNode.r, c: endingNode.c};
+    let currentNode = {r: endingNode.r, c: endingNode.c};
+    // let cnt = 0;
 
-    // console.log(parent[currentNode.r][currentNode.c]);
-    // while(currentNode){
-    //     if(currentNode == startingNode)break;
-    //     console.log(parent[currentNode.r][currentNode.c]);
-    //     currentNode = parent[currentNode.r][currentNode.c];
-    // }
-    console.log(parent[5][3] == startingNode);
+    let shortestDistance = [];
+    
+    // console.log(currentNode);
+    shortestDistance.unshift(currentNode);
+
+    while(currentNode){
+        if(currentNode.r == startingNode.r && currentNode.c == startingNode.c)break;
+        shortestDistance.unshift(parent[currentNode.r][currentNode.c]);
+        // console.log(parent[currentNode.r][currentNode.c]);
+        currentNode = parent[currentNode.r][currentNode.c];
+    }
+    // console.log(parent[5][3] == startingNode);
+
+    let answer = {
+        shortestDistance: shortestDistance,
+        fullPath: fullPath
+    };
+    // console.log(answer);
+
+    return answer;
 }
 
 export { bfs }
@@ -69,6 +89,5 @@ export { bfs }
 /*
 
 (6, 7) => (6,6) => (6, 5) => (6, 4) => (6, 3) => (5, 3)
-
 
 **/

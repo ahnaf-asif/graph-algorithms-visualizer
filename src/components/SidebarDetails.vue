@@ -103,8 +103,8 @@ export default {
             speed: 'Medium',
             algorithms: [
                 {id: 'bfs', name: 'Breadth First Search'},
-                {id: 'dfs', name: 'Depth First Search'},
-                {id: 'dijkstra', name: 'Dijkstra'},
+                // {id: 'dfs', name: 'Depth First Search'},
+                // {id: 'dijkstra', name: 'Dijkstra'},
             ],
             speeds: [
                 'Slow', 'Medium', 'Fast'
@@ -140,6 +140,9 @@ export default {
         algorithmChanged(){
             console.log(this.selectedAlgorithm);
         }
+    },
+    mounted() {
+        this.algorithmChanged();
     },
     computed: {
         ...mapGetters(['currentMode', 'currentRows', 'currentCols', 'startingNode', 'endingNode'])

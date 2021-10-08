@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { bfs } from './algorithms/bfs.js'
+//import { bfs } from './algorithms/bfs.js'
 
 Vue.use(Vuex)
 
@@ -11,6 +11,10 @@ const state= {
   grid: [],
   vis: [],
   parent: [],
+
+  algorithmVisualizationSpeed: 'Medium',
+  gridAnimationSituation: [],
+
   startingNode: {
     r: 5, c: 3
   },
@@ -52,7 +56,14 @@ const mutations= {
     state.vis = new Array(ararows).fill(0).map(() => new Array(aracols).fill(0));
     state.parent = new Array(ararows).fill(0).map(() => new Array(aracols).fill(0));
 
-    bfs(state.rows, state.cols, state.startingNode, state.endingNode, state.grid, state.vis, state.parent);
+    state.gridAnimationSituation = new Array(ararows).fill(0).map(() => new Array(aracols).fill({
+      pathAnimation: 0, 
+      algorithmAnimation: 0
+    }));
+
+    // console.log(state.gridAnimationSituation[3][5]);
+
+    //bfs(state.rows, state.cols, state.startingNode, state.endingNode, state.grid, state.vis, state.parent);
   },
   changeObstacleStatus : (state, node) => {
     
@@ -78,6 +89,7 @@ const getters = {
   startingNode: (state)=> state.startingNode,
   endingNode: (state)=> state.endingNode,
   grid: (state) => state.grid,
+  gridAnimationSituation: (state) => state.gridAnimationSituation,
   
 };
 const modules= { 

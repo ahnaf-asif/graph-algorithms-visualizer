@@ -1,0 +1,57 @@
+@keyframes algorithm-animation {
+    0%{
+      transform: scale(0); 
+      background: limegreen;
+      border-radius: 50%;  
+    }
+    10%{
+      transform: scale(0); 
+      background: limegreen;
+      border-radius: 50%;
+    }
+    20%{
+      transform: scale(0); 
+      background: limegreen;
+      border-radius: 50%;
+    }
+    30%{
+      transform: scale(0); 
+      background: limegreen;
+      border-radius: 50%;
+    }
+    40%{
+      transform: scale(0); 
+      background: limegreen;
+      border-radius: 50%;
+    }
+    50%{
+      transform: scale(0); 
+      background: limegreen;
+      border-radius: 50%;
+    }
+    60%{
+      transform: scale(0); 
+      background: limegreen;
+      border-radius: 50%;
+    }
+    70%{
+      transform: scale(0); 
+      background: limegreen;
+      border-radius: 50%;
+    }
+    80%{
+      transform: scale(0); 
+      background: limegreen;
+      border-radius: 50%;
+    }
+    90%{
+      transform: scale(0); 
+      background: limegreen;
+      border-radius: 50%;
+    }
+    100%{
+      transform: scale(0); 
+      background: limegreen;
+      border-radius: 50%;
+    }
+}

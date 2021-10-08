@@ -23,6 +23,9 @@
 </template>
 
 <style>
+
+@import './assets/animations.css';
+
 .router-link{
   text-decoration: none;
   color: white !important;
