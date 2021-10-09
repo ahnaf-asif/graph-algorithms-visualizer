@@ -11,6 +11,8 @@
             depressed 
             color="purple darken-1 white--text"
             @click="setMode(1)"
+            
+            :disabled="btnAction === false"
         >
             Select Starting Node
         </v-btn>
@@ -21,6 +23,8 @@
             color="cyan darken-1 white--text" 
             class="mt-2"
             @click="setMode(2)"
+
+            :disabled="btnAction === false"
         >
             Select Ending Node
         </v-btn>
@@ -32,6 +36,8 @@
             color="amber darken-2 white--text" 
             class="mt-2"
             @click="setMode(3)"
+
+            :disabled="btnAction === false"
         >
             Select Obstacles
         </v-btn>
@@ -42,11 +48,13 @@
             color="blue-grey darken-4 white--text" 
             class="mt-2"
             @click="setRandomObstacles"
+
+            :disabled="btnAction === false"
         >
             Set Random Obstacles
         </v-btn>
 
-        <v-btn 
+        <!-- <v-btn 
             block 
             tile 
             depressed 
@@ -55,7 +63,7 @@
             @click="setMode(0)"
         >
             Finish Modification
-        </v-btn>
+        </v-btn> -->
 
         <v-select
             outlined
@@ -67,6 +75,8 @@
             v-model="selectedAlgorithm"
             @change="algorithmChanged()"
             label="Select Algorithm"
+
+            :disabled="btnAction === false"
         ></v-select>
 
         <v-select
@@ -75,6 +85,8 @@
             :items="speeds"
             v-model="speed"
             label="Set Visualization Speed"
+
+            :disabled="btnAction === false"
         ></v-select>
 
         <p class="text-center">
@@ -83,6 +95,8 @@
                 large
                 color="light-green accent-3"
                 @click="visualizeAlgorithm()"
+                width="250"
+                :disabled="btnAction === false"
             >
                 Visualize Algorithm !
             </v-btn>
@@ -93,8 +107,9 @@
                 large
                 color="blue-grey darken-3 white--text"
                 @click="resetGridInside()"
+                width="250"
             >
-                Reset The Grid !
+                Reset Grid
             </v-btn>
         </p>
 
@@ -110,11 +125,12 @@ export default {
     data(){
         return{
             selectedAlgorithm: 'bfs',
-            speed: 'Slow',
+            speed: 'Super Fast',
             alreadyVisualized: false,
+            btnAction: true,
             algorithms: [
                 {id: 'bfs', name: 'Breadth First Search'},
-                // {id: 'dfs', name: 'Depth First Search'},
+                {id: 'dfs', name: 'Depth First Search'},
                 // {id: 'dijkstra', name: 'Dijkstra'},
             ],
             speeds: [
@@ -153,9 +169,12 @@ export default {
         },
         resetGridInside(){
             this.alreadyVisualized = false;
+            this.btnAction = true;
             this.resetGrid();
         },
         visualizeAlgorithm(){
+            this.btnAction = false;
+            console.log(this.btnAction);
             if(!this.alreadyVisualized){
                 this.alreadyVisualized = true;
                 this.runAlgorithm([this.selectedAlgorithm, this.speed]);
@@ -172,5 +191,7 @@ export default {
 </script>
 
 <style>
-
+.disabled{
+    opacity: 0.9;
+}
 </style>

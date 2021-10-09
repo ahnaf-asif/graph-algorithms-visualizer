@@ -49,7 +49,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Graph Algorithm Visualizer',
+      title: '2D Graph Algorithm Visualizer',
       instruction: true
     }
   },

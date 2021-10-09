@@ -19,7 +19,7 @@ const state= {
     r: 5, c: 3
   },
   endingNode:{
-    r: 6, c: 7
+    r: 14, c: 17
   }
 };
 

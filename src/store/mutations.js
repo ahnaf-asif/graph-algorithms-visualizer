@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { bfs } from './algorithms/bfs';
+import { dfs } from './algorithms/dfs';
 
 
 const setMode = (state, modeToSet) => {
@@ -23,8 +24,9 @@ const setRowsAndColumns = (state,dimension) => {
     state.parent = new Array(ararows).fill(0).map(() => new Array(aracols).fill(0));
 
     state.gridAnimationSituation = new Array(ararows).fill(0).map(() => new Array(aracols).fill({
-    pathAnimation: 0, 
-    algorithmAnimation: 0
+        pathAnimation: 0, 
+        algorithmAnimation: 0,
+        directionalArrow: 'mdi-arrow-right'
     }));
     // console.log(state.cols);
     // console.log(state.gridAnimationSituation[3][5]);
@@ -59,9 +61,16 @@ const runAlgorithm = (state, details) => {
     console.log('details : ' + details);
     console.log(state.cols);
 
-    let ans = bfs(state.rows, state.cols, state.startingNode, state.endingNode, state.grid, state.vis, state.parent);
+    let ans = {};
 
-    let shortestDistanceArray = ans.shortestDistance;
+    if(details[0] === 'bfs'){
+        ans = bfs(state.rows, state.cols, state.startingNode, state.endingNode, state.grid, state.vis, state.parent);
+    }
+    else if(details[0] == 'dfs'){
+        ans = dfs(state.rows, state.cols, state.startingNode, state.endingNode, state.grid, state.vis, state.parent);
+    } 
+
+    let shortestDistanceArray = ans.shortestDistance; 
     let fullPath = ans.fullPath;
 
     let timeout = 500;
@@ -94,17 +103,32 @@ const runAlgorithm = (state, details) => {
     let lastTime = fullPath.length*timeout;
 
     for(let i = 0; i < shortestDistanceArray.length;i++){
+        let direction = 'mdi-arrow-right';
+        if(i != 0 && i != shortestDistanceArray.length-1){
+            let next = shortestDistanceArray[i+1];
+            let cur = shortestDistanceArray[i];
+
+            if(next.r == cur.r){
+                if(next.c > cur.c)direction = 'mdi-arrow-right';
+                else direction = 'mdi-arrow-left';
+            }
+            if(next.c == cur.c){
+                if(next.r < cur.r)direction = 'mdi-arrow-up';
+                else direction = 'mdi-arrow-down';
+            }
+        }
         setTimeout(()=>{
             Vue.set(state.gridAnimationSituation[shortestDistanceArray[i].r], shortestDistanceArray[i].c, {
                 pathAnimation: 1, 
-                algorithmAnimation: 0
+                algorithmAnimation: 0,
+                directionalArrow: direction
             });
         }, lastTime+i*100);
     }
     
-    console.log(state.gridAnimationSituation);
+    // console.log(state.gridAnimationSituation);
 
-    console.log(shortestDistanceArray, fullPath);
+    // console.log(shortestDistanceArray, fullPath);
 
 };
 

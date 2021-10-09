@@ -10,6 +10,7 @@
         :boxDetails="findBoxDetails(rr,cc)"
         :algorithmAnimation="checkIfAlgorithmAnimationNeeded(rr, cc)"
         :pathAnimation="checkIfPathAnimationNeeded(rr, cc)"
+        :pathDirectionalArrow="checkDirectionalArrow(rr, cc)"
         ></GridBoxComponent>
     </div> 
   </div>  
@@ -79,6 +80,9 @@
       },
       checkIfPathAnimationNeeded(rr, cc){
         return this.gridAnimationSituation[rr][cc].pathAnimation;
+      },
+      checkDirectionalArrow(rr, cc){
+        return this.gridAnimationSituation[rr][cc].directionalArrow;
       }
     }
     

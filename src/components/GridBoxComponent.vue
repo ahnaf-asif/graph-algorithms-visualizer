@@ -19,7 +19,11 @@
             
         </div>
         <div style="display:none;" :class="{'path-animation': pathAnimation && !start && !end}">
-            <div class="inside-path-animation"></div>
+            <div class="inside-path-animation">
+            <v-icon color="white--text" style="color:whitesmoke !important;">
+                {{ pathDirectionalArrow }}
+            </v-icon>
+            </div>
         </div>
         <div 
             class="another-for-icons"
@@ -28,7 +32,17 @@
                 'end' : end,
             }"
         >
-            {{start?'S':''}}{{ end?'E':''}}{{obstacle?'O':''}}
+            <!-- {{start?'S':''}}{{ end?'E':''}} -->
+            <v-icon v-if="start" color="blue-grey darken-2" style="background: yellow; !important;border: 0 !important; height: 100%;width:100%;">
+                mdi-play-circle-outline
+            </v-icon>
+            <v-icon v-if="end" color="blue-grey darken-2" style="background: lime; !important;border: 0 !important; height: 100%;width:100%;">
+                mdi-flag-outline
+            </v-icon>
+            <v-icon v-if="obstacle" color="blue-grey darken-2" style="background: white; !important;border: 0 !important; height: 100%;width:100%;">
+                mdi-lock
+            </v-icon>
+            
         </div>
     </div>
     <!-- <div>hello wolrd</div> -->
@@ -40,7 +54,7 @@ import {mapGetters, mapActions} from 'vuex';
 
 export default {
     name: 'GridBoxComponent',
-    props: ['size', 'row', 'col','boxDetails', 'algorithmAnimation', 'pathAnimation'],
+    props: ['size', 'row', 'col','boxDetails', 'algorithmAnimation', 'pathAnimation', 'pathDirectionalArrow'],
     data(){
         return {
             
