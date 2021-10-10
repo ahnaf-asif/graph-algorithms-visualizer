@@ -10,7 +10,7 @@
           elevation="2"
         >
           <v-card-text>
-            <v-list></v-list>
+            <v-list>
               <v-list-item class="mt-5">
                 <v-list-item-text>
                   Click <b>Select Starting Node</b> and click somewhere in the grid. The starting node will be set to grid you clicked.
