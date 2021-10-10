@@ -5,26 +5,40 @@
         Instruction
       </v-btn>
     </template>
-    <v-carousel v-model="carousel" color="white">
-      <v-carousel-item>
+    
         <v-card
           elevation="2"
         >
           <v-card-title>Introduction to the Buttons</v-card-title>
           <v-card-text>
-            <v-btn 
-              class="mt-2"
-              block 
-              tile 
-              depressed 
-              color="purple darken-1 white--text"
-            >
-              Select Starting Node
-          </v-btn>
+            <v-list>
+              <v-list-item>
+                <v-list-item-text>
+                  Click <b>Select Starting Node</b> and click somewhere in the grid. The starting node will be set to grid you clicked.
+                </v-list-item-text>
+              </v-list-item>
+              <v-divider class="my-2"></v-divider>
+              <v-list-item>
+                <v-list-item-text>
+                  Click <b>Select Ending Node</b> and click somewhere in the grid. The ending node will be set to grid you clicked.
+                </v-list-item-text>
+              </v-list-item>
+              <v-divider class="my-2"></v-divider>
+              <v-list-item>
+                <v-list-item-text>
+                  Click <b>Select Obstacles</b> and click somewhere in the grid to set obstacle.
+                </v-list-item-text>
+              </v-list-item>
+              <v-divider class="my-2"></v-divider>
+              <v-list-item>
+                <v-list-item-text>
+                  Click <b>Select Random Obstacles</b> to set random obstacles
+                </v-list-item-text>
+              </v-list-item>
+            </v-list>
+            <p class="mt-5">Rest of the options are self-explanatory</p>
           </v-card-text>
         </v-card>
-      </v-carousel-item>
-    </v-carousel>
   </v-dialog>
 </template>
 
