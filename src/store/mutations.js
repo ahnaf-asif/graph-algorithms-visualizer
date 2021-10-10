@@ -145,7 +145,7 @@ const runAlgorithm = (state, details) => {
     }
     let lastTime = fullPath.length*timeout+2;
 
-    for(let i = 0; i < shortestDistanceArray.length;i++){
+    for(let i = 0; i < shortestDistanceArray.length-1;i++){
         let direction = 'mdi-arrow-right';
         if(i != 0 && i != shortestDistanceArray.length-1){
             let next = shortestDistanceArray[i+1];

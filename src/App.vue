@@ -33,6 +33,10 @@
   color: white !important;
   text-transform: uppercase;
 }
+.home{
+  display: flex;
+  align-items: center;
+}
 </style>
 
 
