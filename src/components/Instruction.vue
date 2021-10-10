@@ -9,7 +9,6 @@
         <v-card
           elevation="2"
         >
-          <v-card-title>Introduction to the Buttons</v-card-title>
           <v-card-text>
             <v-list>
               <v-list-item>
