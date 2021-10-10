@@ -6,8 +6,11 @@ Vue.use(Vuex)
 
 const state= {
   mode: 0, // mode 0 means no mode, 1 means set start, 2 means set end, 3 means obstacle,
-  rows: 0,
-  cols: 0,
+  rows: 10,
+  cols: 10,
+  canvasHeight: 0,
+  canvasWidth: 0,
+  boxLength: 0,
   grid: [],
   vis: [],
   parent: [],
@@ -16,7 +19,7 @@ const state= {
   gridAnimationSituation: [],
 
   startingNode: {
-    r: 5, c: 3
+    r: 5, c: 5
   },
   endingNode:{
     r: 14, c: 17
@@ -45,6 +48,9 @@ const actions= {
   runAlgorithm({commit}, details){
     commit('runAlgorithm', details);
   },
+  changeDimension({commit}, numberOfCols){
+    commit('changeDimension', numberOfCols);
+  }
 };
  
 const getters = { 
@@ -55,6 +61,9 @@ const getters = {
   endingNode: (state)=> state.endingNode,
   grid: (state) => state.grid,
   gridAnimationSituation: (state) => state.gridAnimationSituation,
+  n : (state) => state.rows,
+  m : (state) => state.cols,
+  boxLength: (state) => state.boxLength,
   
 };
 const modules= { 

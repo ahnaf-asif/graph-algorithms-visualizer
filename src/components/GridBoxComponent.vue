@@ -20,7 +20,7 @@
         </div>
         <div style="display:none;" :class="{'path-animation': pathAnimation && !start && !end}">
             <div class="inside-path-animation">
-            <v-icon color="white--text" style="color:whitesmoke !important;">
+            <v-icon :size="size" color="white--text" style="color:rgb(138, 145, 146) !important;">
                 {{ pathDirectionalArrow }}
             </v-icon>
             </div>
@@ -33,13 +33,13 @@
             }"
         >
             <!-- {{start?'S':''}}{{ end?'E':''}} -->
-            <v-icon v-if="start" color="blue-grey darken-2" style="background: yellow; !important;border: 0 !important; height: 100%;width:100%;">
+            <v-icon :size="size" v-if="start" color="blue-grey darken-2" style="background: yellow; !important;border: 0 !important; height: 100%;width:100%;">
                 mdi-play-circle-outline
             </v-icon>
-            <v-icon v-if="end" color="blue-grey darken-2" style="background: lime; !important;border: 0 !important; height: 100%;width:100%;">
+            <v-icon :size="size" v-if="end" color="blue-grey darken-2" style="background: lime; !important;border: 0 !important; height: 100%;width:100%;">
                 mdi-flag-outline
             </v-icon>
-            <v-icon v-if="obstacle" color="blue-grey darken-2" style="background: white; !important;border: 0 !important; height: 100%;width:100%;">
+            <v-icon :size="size" v-if="obstacle" color="blue-grey darken-2" style="background: white; !important;border: 0 !important; height: 100%;width:100%;">
                 mdi-lock
             </v-icon>
             
@@ -84,7 +84,6 @@ export default {
                 // this.obstacle = true
                 let node = {r: this.row, c: this.col};
                 this.changeObstacleStatus(node);
-                console.log('in the component : '  , this.boxDetails);
             }
         }
     },
@@ -105,13 +104,15 @@ export default {
 
 <style lang="scss">
 
-
+.icon{
+    font-size: 100% !important;
+}
 
 
 
 .gridbox{
-    border-right: 2px solid #758d99;
-    border-bottom: 2px solid #758d99;
+    border-right: 1px solid #758d99;
+    border-bottom: 1px solid #758d99;
     background: transparent;
     display: flex;
     align-items: center;
@@ -140,7 +141,7 @@ export default {
 }
 .algorithm-animation{
     animation: algorithmAnimation ease-in-out forwards;
-    animation-duration: 200ms;
+    animation-duration: 1s;
 }
 .path-animation{
     // z-index: 100;
@@ -154,13 +155,14 @@ export default {
 
     transform: scale(1); 
 
-    background: rgb(52, 255, 221);
+    background: rgb(52, 225, 255);
 }
 .inside-path-animation{
     height: 100%;
     width:100%;
     border-radius: 50%;
-    background: rgb(255, 12, 202);
+    background: rgb(68, 255, 177);
+    display:flex;align-items: center;justify-content: center;
 }
 .another-for-icons{
     height:100%;
@@ -189,39 +191,39 @@ export default {
 @keyframes algorithmAnimation {
     0%{
       transform: scale(0.1); 
-      background: rgb(52, 133, 255);
+      background: rgb(255, 235, 52);
       border-radius: 50%;  
     }
     5%{
-        background: rgb(52, 157, 255);
+        background: rgb(235, 255, 52);
     }
     10%{
       transform: scale(0.2); 
-      background: rgb(52, 191, 255);
+      background: rgb(218, 255, 52);
       border-radius: 50%;
     }
     15%{
-        background: rgb(52, 214, 255);
+        background: rgb(160, 255, 52);
     }
     20%{
       transform: scale(0.3); 
-      background: rgb(52, 231, 255);
+      background: rgb(150, 255, 52);
       border-radius: 50%;
     }
     25%{
-        background: rgb(52, 248, 255);
+        background: rgb(126, 255, 52);
     }
     30%{
       transform: scale(0.4); 
-      background: rgb(52, 255, 228);
+      background: rgb(99, 255, 52);
       border-radius: 50%;
     }
     35%{
-        background: rgb(52, 255, 204);
+        background: rgb(76, 255, 52);
     }
     40%{
       transform: scale(0.5); 
-      background: rgb(52, 255, 170);
+      background: rgb(52, 255, 96);
       border-radius: 50%;
     }
     45%{
@@ -233,51 +235,51 @@ export default {
       border-radius: 50%;
     }
     55%{
-        background: rgb(86, 255, 52);
+        background: rgb(52, 255, 120);
         border-radius: 50%;
     }
     60%{
       transform: scale(0.7); 
-      background: rgb(143, 255, 52);
+      background: rgb(52, 255, 130);
       border-radius: 50%;
     }
     65%{
-        background: rgb(194, 255, 52);
+        background: rgb(52, 255, 143);
         border-radius: 45%;
     }
     70%{
       transform: scale(0.8); 
-      background: rgb(252, 255, 52);
+      background: rgb(52, 255, 160);
       border-radius: 40%;
     }
     75%{
-        background: rgb(255, 241, 52);
+        background: rgb(52, 255, 170);
         border-radius: 35%;
     }
     80%{
       transform: scale(0.9); 
-      background: rgb(252, 255, 52);
+      background: rgb(52, 255, 187);
       border-radius: 30%;
     }
     85%{
-        background: rgb(194, 255, 52);
+        background: rgb(52, 255, 211);
         border-radius: 25%;
     }
     90%{
       transform: scale(0.95); 
     //   background: rgb(255, 191, 52);
-        background: rgb(194, 255, 52);
+        background: rgb(52, 231, 255);
       border-radius: 20%;
     }
     95%{
         // background: rgb(255, 174, 52);
-        background: rgb(194, 255, 52);
+        background: rgb(52, 214, 255);
         border-radius: 20%;
     }
     100%{
       transform: scale(1.0); 
     //   background: rgb(255, 174, 52);
-      background: rgb(52, 255, 221);
+      background: rgb(52, 225, 255);
       border-radius: 0;
     }
 }

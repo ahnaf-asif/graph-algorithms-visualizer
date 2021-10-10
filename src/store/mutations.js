@@ -15,10 +15,28 @@ const setEndingNode = (state, node) => {
     state.endingNode = node
 };
 
-const setRowsAndColumns = (state,dimension) => {
-    state.rows = dimension.rows, state.cols = dimension.cols;
-    let ararows = dimension.rows+10;
-    let aracols = dimension.cols+10;
+const setRowsAndColumns = (state,details) => {
+
+    // details = {canvasHeight, canvasWidth, numberOfCols}
+    state.mode = 0;
+
+    state.canvasHeight = details.canvasHeight;
+    state.canvasWidth = details.canvasWidth;
+    
+    let cols = details.numberOfCols;
+
+    let boxLength = state.canvasWidth/cols;
+    let rows = Math.floor(state.canvasHeight/boxLength)+1;
+
+    state.rows = rows, state.cols = cols;state.boxLength = boxLength;
+
+    let ararows = rows+20;
+    let aracols = cols+20;
+
+    // console.log(state.canvasHeight, state.canvasWidth, ararows, aracols);
+
+    state.endingNode = {r: state.rows-3, c: state.cols-3};
+
     state.grid = new Array(ararows).fill(0).map(() => new Array(aracols).fill(0));
     state.vis = new Array(ararows).fill(0).map(() => new Array(aracols).fill(0));
     state.parent = new Array(ararows).fill(0).map(() => new Array(aracols).fill(0));
@@ -28,11 +46,38 @@ const setRowsAndColumns = (state,dimension) => {
         algorithmAnimation: 0,
         directionalArrow: 'mdi-arrow-right'
     }));
-    // console.log(state.cols);
-    // console.log(state.gridAnimationSituation[3][5]);
 
-    
+    // console.log(' here we go ' , state.rows, state.cols);
 };
+
+const changeDimension = (state, numberOfCols) => {
+    state.mode = 0;
+    if(numberOfCols == state.cols)return;
+    let cols = numberOfCols;
+
+    let boxLength = state.canvasWidth/cols;
+    let rows = Math.floor(state.canvasHeight/boxLength)+1;
+
+    state.rows = rows, state.cols = cols;state.boxLength = boxLength;
+
+    let ararows = rows+20;
+    let aracols = cols+20;
+
+    state.endingNode = {r: state.rows-3, c: state.cols-3};
+
+    state.grid = new Array(ararows).fill(0).map(() => new Array(aracols).fill(0));
+    state.vis = new Array(ararows).fill(0).map(() => new Array(aracols).fill(0));
+    state.parent = new Array(ararows).fill(0).map(() => new Array(aracols).fill(0));
+
+    state.gridAnimationSituation = new Array(ararows).fill(0).map(() => new Array(aracols).fill({
+        pathAnimation: 0, 
+        algorithmAnimation: 0,
+        directionalArrow: 'mdi-arrow-right'
+    }));
+
+    // console.log(' here we go ' , state.rows, state.cols);
+}
+
 const changeObstacleStatus = (state, node) => {
     
     if( state.grid[node.r][node.c] == 0){
@@ -58,8 +103,6 @@ const runAlgorithm = (state, details) => {
 
     state.mode = 0;
 
-    console.log('details : ' + details);
-    console.log(state.cols);
 
     let ans = {};
 
@@ -73,23 +116,23 @@ const runAlgorithm = (state, details) => {
     let shortestDistanceArray = ans.shortestDistance; 
     let fullPath = ans.fullPath;
 
-    let timeout = 500;
+    let timeout = 20;
 
     let speed = details[1];
     if(speed == 'Super Slow'){
-        timeout = 1000;
-    }
-    if(speed == 'Slow'){
         timeout = 500;
     }
-    if(speed == 'Medium'){
-        timeout = 300;
-    }
-    if(speed == 'Fast'){
+    if(speed == 'Slow'){
         timeout = 200;
     }
-    if(speed == 'Super Fast'){
+    if(speed == 'Medium'){
         timeout = 100;
+    }
+    if(speed == 'Fast'){
+        timeout = 50;
+    }
+    if(speed == 'Super Fast'){
+        timeout = 1;
     }
 
     for(let i = 0; i < fullPath.length;i++){
@@ -98,9 +141,9 @@ const runAlgorithm = (state, details) => {
                 pathAnimation: 0, 
                 algorithmAnimation: 1
             });
-        }, i*timeout);
+        }, i*timeout+1);
     }
-    let lastTime = fullPath.length*timeout;
+    let lastTime = fullPath.length*timeout+2;
 
     for(let i = 0; i < shortestDistanceArray.length;i++){
         let direction = 'mdi-arrow-right';
@@ -123,7 +166,7 @@ const runAlgorithm = (state, details) => {
                 algorithmAnimation: 0,
                 directionalArrow: direction
             });
-        }, lastTime+i*100);
+        }, lastTime+(i+150));
     }
     
     // console.log(state.gridAnimationSituation);
@@ -140,5 +183,6 @@ export default {
     setRowsAndColumns, 
     changeObstacleStatus, 
     resetGrid,
-    runAlgorithm 
+    runAlgorithm,
+    changeDimension
 };

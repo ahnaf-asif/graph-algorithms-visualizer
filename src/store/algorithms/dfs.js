@@ -9,7 +9,6 @@ var isDone = false;
 
 function call(n, m, cur, last, grid, vis, parent, fullPath){
     
-    // console.log(cur);
 
     let delta = [[0,1], [1, 0], [0, -1], [-1, 0]];
 
@@ -39,7 +38,6 @@ function call(n, m, cur, last, grid, vis, parent, fullPath){
 
 function dfs(n, m, startingNode, endingNode, grid, vis, parent){
     
-    console.log('dfs e ashlam');
     
     isDone = false;
     
@@ -57,8 +55,6 @@ function dfs(n, m, startingNode, endingNode, grid, vis, parent){
         distancePath.unshift(lastNode);
         lastNode = parent[lastNode.r][lastNode.c];
     }
-
-    console.log(fullPath, distancePath);
 
     return {
         shortestDistance: distancePath,

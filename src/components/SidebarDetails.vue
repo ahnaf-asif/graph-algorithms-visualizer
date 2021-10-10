@@ -3,7 +3,18 @@
         <!-- <h3 class="text-center mt-5">Different Modes</h3>  -->
         <!-- {{ currentMode }} -->
         <!-- <v-divider class="mb-10"></v-divider> -->
-        
+        <v-slider
+            class="mx-2 my-2"
+            label="Grid density"
+            v-model="sliderValue"
+            step="5"
+            min="10"
+            max="50"
+            thumb-label
+            ticks
+            :disabled="btnAction === false"
+            @change="sliderSelected()"
+        ></v-slider>
         <v-btn 
             class="mt-2"
             block 
@@ -73,7 +84,6 @@
             item-text="name"
             item-value="id"
             v-model="selectedAlgorithm"
-            @change="algorithmChanged()"
             label="Select Algorithm"
 
             :disabled="btnAction === false"
@@ -125,6 +135,7 @@ export default {
     data(){
         return{
             selectedAlgorithm: 'bfs',
+            sliderValue: 20,
             speed: 'Super Fast',
             alreadyVisualized: false,
             btnAction: true,
@@ -139,7 +150,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['setMode', 'changeObstacleStatus', 'resetGrid', 'runAlgorithm']),
+        ...mapActions(['setMode', 'changeObstacleStatus', 'resetGrid', 'runAlgorithm', 'changeDimension']),
         setRandomObstacles(){
 
             this.resetGrid();
@@ -164,9 +175,7 @@ export default {
                 }
             }
         },
-        algorithmChanged(){
-            console.log('algorithm changed');
-        },
+        
         resetGridInside(){
             this.alreadyVisualized = false;
             this.btnAction = true;
@@ -174,15 +183,18 @@ export default {
         },
         visualizeAlgorithm(){
             this.btnAction = false;
-            console.log(this.btnAction);
             if(!this.alreadyVisualized){
                 this.alreadyVisualized = true;
                 this.runAlgorithm([this.selectedAlgorithm, this.speed]);
             }
+        },
+        sliderSelected(){
+            // console.log(this.sliderValue);
+            this.changeDimension(this.sliderValue);
         }
     },
     mounted() {
-        this.algorithmChanged();
+
     },
     computed: {
         ...mapGetters(['currentMode', 'currentRows', 'currentCols', 'startingNode', 'endingNode'])
